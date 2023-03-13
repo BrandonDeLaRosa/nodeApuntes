@@ -1,0 +1,67 @@
+
+================================ NORMALIZACION DE TABLAS:
+
+Serie de reglas que nos permite organizar, crear de la forma mas optima las tablas de una DB, para su futura relacion entre las diferentes tablas de la misma.
+CREAR UN STANDAR PARA LA INFROMACION QUE GUARDARA LA DB, MEJORANDO LA ORGANIZACION DE LA MISMA Y SU MANEJO.
+
+-Ayuda a mantener la integridad de los datos.
+-Evitar redundancia de datos.
+-Ahorrar espacio en disco.
+
+
+
+--Primera Forma Normal.
+
+1 fn (primera forma normal) = Reglas para crear tablas de forma adecuada
+
+-Todas las tables deben llevar llave primara. = Primary key (Pk) <--- ID.   Sintaxis basica de id  ----> id int [pk]  
+-Todos los campos deben manejar solo un valor (campos atomicos) <--- Ya que no se puede seguir dividiendo la informacion de un campo.
+-Eliminar campos que manejen valores nulos.
+-Eliminar grupos de tablas repetidos/VARIACIONES.	
+
+----CUANDO UN CAMPO ESTE EN CONTRA DE UNA FORMA NORMAL ESTE DEBE TENER SU PROPIA TABLA. --------
+
+// Constrain o restricciones [van entre corchetes],
+// evitan su omicion
+
+Constrain = required/ restricciones. 
+[pk] Llave primaria.
+[not null] que el campo no este vacio. <-- No abusar, Nombre y correo es lo obligatorio (cntry, age, etc) opcional.
+[unique] Que el dato sea unico = correos
+[increment] va aumentando de uno en uno / autoincrementable.
+[default: true] Disponibilidead de un producto (por defecto true. Trabaja con booleans
+
+
+--Segunda Forma Normal. 
+
+- La tabla debe estar en primera forma normal.
+- Los campos que no son llave primaria, debven depender de la llave primaria, de la tabal.
+- Cuando dos tablas dependen de una tercera, la tercera se debe normalizar para cada tabla dependiente.
+- Eliminacion de las dependencias parciales.   <-- SEPARAR VALORES QUE NO DEPENDEN DIRECTAMENTE DE LA LLAVE PRIMARIA. 
+
+
+
+-- 3era froma normal.
+-Todas las tablas en 2daFN
+-Eliminar todos los campos que dependan de otros campos que no sean la llave primaria, eliminando las dependencias transitivas.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-Dependencia Funcional ...Columna que depende de otra columna que es la llave Principal
+-Dependencia Parcial ...Columna que depende de otra columna que no es la llave Principal
+-Dependencia Transitoria ...Columna que depende de otra columna y que esta ultima columna mencionada depende de otra columna que es la llave principal .

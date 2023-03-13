@@ -1,0 +1,28 @@
+foro=# SELECT * FROM posts;
+ id |        title        |                                 descripction                                  | user_id | category_id
+----+---------------------+-------------------------------------------------------------------------------+---------+-------------
+  2 | Dudas con Sequelize | ALguien podría darme una mano con como poner un valor por defecto en unmodelo |       1 |           3
+(1 fila)
+
+
+foro=# SELECT * FROM categories;
+ id |      name
+----+-----------------
+  1 | Cocina
+  2 | Ciencia
+  3 | Tecnologia
+  4 | Deportes
+  5 | Arte
+  6 | Entretenimiento
+  7 | Politica
+  8 | Religión
+  9 | Cine
+ 10 | Juegos
+ 11 | Otra
+(11 filas)
+
+
+
+
+
+INSERT INTO categories (name) VALUES ('Cocina'),('Ciencia'),('Tecnologia'),('Deportes'),('Arte'),('Entretenimiento'),('Politica'),('Religion'),('Cine'),('Juegos'),('Otra');

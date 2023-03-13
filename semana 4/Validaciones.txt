@@ -1,0 +1,7 @@
+VALIDACIONES...
+
+https://express-validator.github.io/docs/
+
+express validarot es un conjunto de middlewares (que ayuda a mantener mejor organizada la alidacion).
+
+express-validator is a set of express.js middlewares that wraps validator.js validator and sanitizer functions.

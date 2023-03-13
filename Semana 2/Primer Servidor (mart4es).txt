@@ -1,0 +1,108 @@
+Crear proyecto node 
+
+---> npm init = da preguntas en la consola
+---> npm init -y == sin preguntas
+
+
+
+
+Express ---> npm install express
+
+{
+  "name": "primerservidor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Brandon De La Rosa",
+  "license": "ISC"
+}
+
+
+npm install express
+
+
+app basica express 
+ const express = require('express')
+
+
+const app = express() // Crea una instancia de express en la variable app.
+//va a antender  una peticion del tipo GET en la ruta raiz.
+
+/* 
+? La peticion get recibe dos objetos (request y response)
+?requestes= Toda la info que se envia en la peticon (body, headers  method, etc)
+*/
+
+app.get('/', (req, res) => {
+    res.send('hello World');
+    //! al hacer una peticion al get de app ==> respondera con hello world.
+});
+
+
+//? el puerto debe estar entre 1024 -- 65535
+app.listen(1025, () => {
+    console.log('Servidor corriendo en el puerto 1025');
+})
+
+
+
+
+==========================  CAMBIOS DE SCRIPT ========================
+
+ "scripts": {
+    "start": "node ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+
+
+"devDependencies": {               <---- dependencia.
+    "nodemon": "^2.0.20"
+  }
+
+npm install nodemon -D
+
+"scripts": {
+    "start": "node ./app.js",
+    "dev": "nodemon .appjs",            <--- scrip de nodemon 
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+
+
+
+> primerservidor@1.0.0 dev
+> nodemon .appjs
+
+[nodemon] 2.0.20
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
+[nodemon] starting `node .appjs app.js`
+Servidor corriendo en el puerto 1025
+
+============================================== MIDDLEWARE ===========================
+
+MIDDLE = MIDDLE.
+WARE = SOFTWARE. ---> programa que vA en medio, entre la mitad. Entre la peticion del cliente y el response del servidor
+
+Toda funcion va entre el req y res.
+
+Un middleware es una funcion que se ejecuta entre el ciclo de vida de una peticion y con acceso al objeto req, res y a la funcion next que nos lleva a la sig funcion, estos objetos vienen dentro del middleware.
+
+const logger = (res,res,next) => {     <---- ESTE ES UN MIDDLEWARE
+    const {method, path, ip, protocol} = req;
+    console.log({method, path, ip, protocol});
+}
+
+
+app.get(
+    '/', logger,(req, res, next) => {  <--- AQUI SE ESTA CONSUMIENDO.
+   res.send ("hello world")
+});
+
+
+--APP LEVEL MIDDLEWARE = 
+--MIDDLEWARE INCORPORADOS= SON AQUELOS QUE VIENEN INCLUIDOS ALINSTALAR EXPRESS.

@@ -1,0 +1,46 @@
+=========== BASES DE DATOS ========================  
+
+-Un dato puede ser una palabra, letra, numero, simbolo, etc (que carece de significado).
+-Una base de datos en un CONJUNTO DE INFORMACION/DATOS, que se puede CONSULTAR y GUARDAR de manera SISTEMATICA Y RELACIONADA A UN TEMA.
+
+-La base de datos (relacional) unicamente sirve para guardar informacion, no es mas que un conjnto de tablas
+Visualizar como un excel.
+======================== DBMS // RDBMS=================================
+
+
+
+Las bases de datos actuales son manejadas mediante software conocidos como Database Management system.
+
+Estos gestores no permiten interctuar con lña base de datos (CRUD).
+Ademas de encargarse de la seguridad e integridad de la informacion, asi como crear copias de seguridad.
+
+Una base de datos es el conjunto de informacion de un mismo tema y un DBMS es el programa que nos permite interactuar con la informacion.
+
+
+========================== PostgresSQL --> RDBMS.
+
+-Sistema de gestion de bases de datos relacionales, es de open Source, su nucleo se basa en el objeto relacional.
+-Cumple con el standar ACID (Sistema de relgas que deben cumplir las DB).
+-Atomicidad(un cambio debe estar completo o no modificarse en absoluto.
+-Consitencia(cualuier cambio debe dar un resultado valido, cuando se realice un cambio debe cumplir las reglas).
+-Aislamiento (Cada proceso de postgres no afecta a a la informacion vecina).
+-Durabilidad(Brinda seguridad de la informacion, confianza que la info no se perdera).
+
+ SQL = Structure Query  Languaje 
+ -Sirve para que interactuemos con la base de datos. 
+ -Permite manejar bases de datos con mucho volumen.
+
+
+
+======================== BASES DE DATOS RELACIONALES ======================
+
+Son aquellas que basan su estructura en pequeños trozos de informacion o ENTIDADES en el que se definen los ATRIBUTOS que son representados por medio de tablas.
+
+Ejemplo: 
+
+entidad= persona.
+atributos= nombre, apellido, edad, CURP.
+
+-Entidad, Atributo, Columnas, Filas.
+
+

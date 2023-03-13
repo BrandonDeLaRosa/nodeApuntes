@@ -1,0 +1,227 @@
+ORM = OBJECT RELATIONAL MODEL  (sequelize).  https://sequelize.org/docs/v6/getting-started/
+
+Nos permite mapear toda la estructura de tablas de la base de datos y poder usar js para poder hacer las consultas mediante js.
+Nos permite relizar CRUD de forma mas sencilla.
+Nos permite crear seeds (para recuperar la estructura de la bd, insertar indo de una bd a otra.
+Nos permite hacer consultas otras bd, porque es agnostico.
+
+
+Morgan es un logger nos da informacion de las peticiones que hay en el servidor.
+
+
+La carpeta src debe contener toda la app.
+La carpeta utils ---> database.js ---> contiene el codigo para conectar la bd a sequelize.
+La carpeta models, va contener las tablas de la bd, pero en equelize se llaman modelos.
+La carpeta routes contiene los endpoints. Desde aqui se realizan las peticiones CRUD.
+
+
+SEQUELIZE FUNCIONA COMPARANDO 
+compara lo que hay en vscode con la base de datos, si encuntra coincidencias no hace nada,
+sino, la crea y agrega lo que corresponde.
+
+
+
+- crear el archivo. npm init -y
+- instalar dependencias. express, sequelize, pg y ph, morgan , nodemon.
+
+============================================================================
+{
+  "name": "entregable2todos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.9.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.29.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
+
+
+================================================
+
+
+
+- crear componente basico de express.
+
+const express = require ('express');
+
+const PORT =1025;
+
+
+const app = express();
+app.get('/', (req,res) => {
+    res.send('bienvenido al servitos todoApp')
+})
+
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando al puerto ${PORT}`);
+})
+
+
+============================== Y COMPROBAR LA CONEXION.
+
+=================================== RESUMEN Creacion de conexion a bd con sequelize y express
+
+- crear utils y dentro databse.
+
+
+const { Sequelize } = require('sequelize');     <---- LIENA PARA IMPORTAR PAQUETE SEQUELIZE.
+
+const db = new Sequelize({
+    database: "toDoList",
+    port:5432,
+    host: "localhost",
+    username: "postgres",
+    password: "ruth",
+    dialect:"postgres"
+});
+
+module.exports= db;  <--- EXPORTACION
+
+=================================================
+
+- autenticarlo en la consola.
+
+
+db.authenticate()          <----- Autenticacion.
+.then(() => {
+    console.log('Conexion exitosa ok');
+})
+.catch((error) =>{
+    console.log(error);
+})
+
+db.sync()                  <----- Sincronizacion con la base de datos creada en psql 
+.then(() => {
+    console.log('Base de datos sincronizada');
+})
+.catch( 
+    (error)=> {
+}
+)
+
+========================= ESTA ULTIMA SYNC DEBE MOSTRAR UN MENSAJE EN CONSOLA DE LAS TABLAS CREADAS Y SU INFO.
+
+- crear primer modelo.
+- Crear carpeta y crearc archivo.
+
+
+const { DataTypes } = require('sequelize');  <-- Instancia de sequelize, permite agregar los valores como Pk,Type,etc.
+const db = require('../utils/database');  <-- Importar la DB, para que el modulo este en contacto con la misma.
+
+
+
+        este parametro acepta el nombre de cada elemento y un objeto que define lo que habra por elemento.
+const ToDos = db.define('toDo', {  <<<--- Esto es igual a: INSERT INTO ...
+    id:{
+        type: DataTypes.INTEGER,
+        primaryKey:true,
+        autoIncrement:true
+    },
+    title:{
+        type: DataTypes.STRING(40),
+        allowNull:false
+    },
+    description:{
+        type: DataTypes.STRING,
+        allowNull:false
+    },
+    status:{
+        type: DataTypes.BOOLEAN,
+        allowNull:false
+    },
+});
+
+module.exports= ToDos;
+
+
+
+====================================================================
+- Creacion de las Rutas. (Las rutas son las peticiones).
+
+-Crear carpeta de rutas y archivo rutas.
+
+const { Router } =require('express');    <---- Instancia router (viene incluida en expres.
+const ToDos = require ('../models/toDos.models') <-- Importacion del modelo a trabajar.
+
+
+EN APP.JS 
+-  Importar la el archivo rutas 
+-  app.use(express.json()) <--- Middleware incormporado (Indispensable para peticiones Create,Update y delete).
+
+
+- CREACION DE LAS PETICIONES "CRUD".
+
+const router = Router();
+
+router.get('/api/v1/toDos', async (req,res) =>{
+    try {
+        const toDo = await ToDos.findAll({
+            attributes:["id","title","description","status"]
+        });
+        res.json(toDo)
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+router.post('/api/v1/toDos' , async (req,res) => {
+    try {
+        const newToDo = req.body;
+        console.log(newToDo)
+        const toDo = await ToDos.create(newToDo)
+        res.status(201).send(toDo);
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+
+router.delete('/api/v1/toDos/:id', async (req, res) => {
+    try {
+        const {id} = req.params;    <--- Identificador del elemento a eliminar
+        const toDoDeleted = await ToDos.destroy({
+            where: { id }
+        });
+        res.status(204).send('No content'); 
+    } catch (error) {
+        res.status(400).json(error)
+    }
+});
+
+
+router.put( '/api/v1/toDos/:id', async ( req, res )=> {
+    try {
+
+        const {id} = req.params;  //<-- Parametro para saber cual se va actualizar.
+        const data = req.body;  //<-- Info que se va actualizar.
+        await ToDos.update(data,{  // <--- Sino se envia informacion "send()", se pone desde el await.
+            where:{id}
+        });
+        res.status(201).send()
+
+
+        // const result = await ToDos.update(data,{  <--- Si se va enviar info se coloca con variable.
+        //     where:{id}
+        // });
+        // res.status(201).send(result)
+
+
+    } catch (error) {
+        res.status(400).json(error);
+    }
+});
+module.exports = router;

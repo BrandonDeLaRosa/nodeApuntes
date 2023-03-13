@@ -1,0 +1,86 @@
+Parametro err en app.use(err, req,res,next)  <--- Los cuatro parametros del middleware de app.
+
+
+REQUEST ------------------------------------------- aqui viven los middlewares ---------------------------------> RESPONSE
+
+UN MIDDLEWARE ES TODO LO QUE SUCEDE ENTRE REQUEST Y RESPONSE.
+
+
+                                                                  POST/USERS
+
+PETICION ---> CORS(NEXT) ---> MORGAN(NEXT)--->E.JSON(NEXT) --->  usersRoutes('users')(validator)(next) -- 
+
+---> CreateUser/PUT/GET´S/DELETE el controller AHORA DEBE TENER NEXT(ERROR) --->  SI TODO SALE BIEN --> RESPONSE Y AQUI TERMINA PPPEEERRROOO --->
+   
+///// SI HAY ERROR, SE VA AL MIDDLEWARE DE ERROR.
+
+
+
+
+================================================= RUTA 
+
+
+
+
+
+
+
+
+
+
+
+
+Los middlewares de error, tienen cuatro parametros (err,re,res,next)
+
+
+
+Se crea carpeta middlewares
+se crea error.handler.js
+se crea una ruta para manejo de errores (errorHandler.routes)
+se exporta el modelo
+se importa en app.js
+y se ejecuta al final del codigo, arriba del listen.
+
+
+
+
+------------------------------------------------------- ESTRUCTURA BASICA ---------------------------------
+const {
+    ValidationError,
+    DatabaseError,
+    BaseError,
+    ConnectionError,
+    ConnectionAcquireTimeoutError,     //!Teimpo agotado para conexion de base de datos.
+    ConnectionRefusedError,
+    ConnectionTimedOutError,
+    InvalidConnectionError,
+} = require('sequelize');
+
+
+//TODO una funcion para loggear errores ( console.log())
+
+const logError = (error, req,res,next) => {
+    console.log(error);
+    next(error)
+}
+
+module.exports = {
+    logError
+}
+
+
+
+
+
+
+--------------------------------------------------ESTRUCTURA DE ERROR HANDLER ROUTE ---------------------------------
+
+const { logError } = require('../middlewares/error.handler');
+
+const errorHandlerRoute = (app) => {     //! El parametro app hace referencia a la isntancia de express en app.js.
+    app.use(logError)
+
+    app.use((err,req,res,next) =>{
+        res.status(400).json(error)
+    });
+}

@@ -1,0 +1,57 @@
+Relaciones.
+
+Una vez fragmentada la informacion, se procede a relacionarla.
+
+Tipos de relaciones:
+
+1-1 = perosna/CURP
+1- muchos. = persona/pedidos en amazon.
+muchos a muchos. = peliculas/actores.
+
+DBML
+
+Database markup language.
+
+
+table car_model{
+  id int [pk, increment]
+  model varchar(25) [not null, unique]
+  brand varchar(25) [not null]
+}
+
+table transmition {
+  id int [pk, increment]
+  type varchar (20) [not null]
+}
+
+table brand {
+  id int [pk, increment]
+  name varchar(25) [not null]
+  // La llave foranea se pone donde va "muchos"
+  country int [not null]
+}
+
+table country {
+   id int [pk, increment]
+  name varchar(25) [not null]
+}
+
+
+// Tabla pivote solo lleva llaves foraneas
+// Se crea para relacionar.
+// car_model y transmision es una realcion muchos a muchos.
+// La tabla pivote sirve para eso.
+table car_transmition{
+  id int [pk, increment]
+  // Llaves foraneas.
+  model int [not null]
+  type int [not null]
+}
+
+Ref: "brand"."id" < "car_model"."brand"
+ 
+Ref: "country"."id" < "brand"."country"
+
+Ref: "car_model"."id" < "car_transmition"."model"
+
+Ref: "transmition"."type" < "car_transmition"."type"

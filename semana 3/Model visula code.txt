@@ -1,0 +1,29 @@
+MVC = Modelo Vista Controlador.
+-Su parte principal es un controlador--> atiende una peticion y da una respusta.
+
+El cliente realiza una peticion al servidor,el controlador recibe la peticion del servidor, 
+este se la pide al modelo, el modelo la consulta en su informacion previamente guardada
+ y al obtener la respuesta la devuelve al controlador, se la envia al cliente  y se genera una vista o view.
+
+
+CLIENTE ---> SERVIDOR ---> CONTROLADOR ---> SERVICIO ----> MODELO ---> CONSULTA EN BD ---> CONTROLADOR ---> CLIENTE.
+
+
+EL SERVICIO SE ENCARGA DE OBTENER TODO, CUANDO EL CONTROLADOR BUSCA INFORMACION LO HACE MEDIANTE EL SERVICIO, QEU SE CONECTA AL MODELO Y ESTE OBTIENE TODO Y LO DEVUELVE  CONTROLLER
+
+Una vez creados los endpoints y la sincronizacion con base de datos(ESTE CONTIENE EL REQ Y RES).
+
+-se crea carpeta controllers.   
+-Dentro se crea user.controllers.
+
+-se crea carpeta services.(ESTOS ESTARAN EN COMUNICACION CON LA BD).
+
+La carpeta sevices y controllers Vuelven lapagina mas manejable cuando se vuelve a gran escala, permitiendo agregfar
+mas funcionalidades con un codigo mas legible.
+
+La funcion de callback en routes no debe tener Parentesis 
+router.get('/api/v1/users', getAllUsers()); <<<--- SIN PARENTESIS.
+
+Cuando se ponene parentesis la fucion se ejecuta al moento que abre el servidor, si se manda sin ellos, solo se activara cuando se necesite o se realice la patecion correspondiente.
+
+

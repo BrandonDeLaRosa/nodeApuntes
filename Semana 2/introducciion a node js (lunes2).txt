@@ -1,0 +1,99 @@
+Back-end -- Front End (meme).
+
+QUE ES UN SERVIDOR---> es una computadora, que se encarga de satisfacer o brindar la informacion qye un clinte pide.
+-Un cliente ---> Todo dispositivo que se conecte a un servidor para hacer una peticion.
+
+CLIENTE ---> UN REQUEST --> DOMAIN NAME SYSTEM (localiza donde esta la direccion que pide el cliente)
+----> el servidor procesa, filtra , etc ---> manda RESPONSE.
+
+
+https ---> Hyper Text Transfer Protocol Secure
+
+http:// academlo.com/cursos 
+
+(http = protocolo para la transfer de info).
+ (academlo.com =seccion donde se encuentra el nombre del dominio junto a la extension usada: .com .org .site .ect).
+
+
+-------------------------- http codigos de estado de respuesta. ----------------------------
+Se dividen en 5 grupos:
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+https://http.cat/
+
+-informativos. (100's)
+-satisfactorios (200´s)
+-redirecciones (300's)
+-errores del cliente (400's)  
+    MAS IMPORTANTES (400 - 404, TODO LO QUE UN CLIENTE ESTA HACIENDO MAL 
+-codifos de errores de servidor. (500's)
+
+
+
+
+
+
+
+# Servidor
+
+Se compone de las siguientes unidades 
+
+<aside>
+📌 CPU
+RAM
+SSD
+
+</aside>
+
+En estos servidores podemos alojar nuetras aplicaciones para poder atender peticiones que deseemos. 
+
+Tenemos diferentes tipos de opciones para poder alojar nuestras aplicaciones 
+
+- IaaS ( Infrastructure as a Service )
+- PaaS ( Platform as a Service )
+- SaaS ( Software as a Service )
+
+
+
+
+
+
+
+
+
+Que es una libreria es una herramienta especifica para completar una tarea. 
+
+proyecto de react ---> vamos a npm(ferreteria) para usar librerias ---> axios (herrramienta) ---> consumir api (tarea).
+
+framework = conjunto de librerias. (taller en casa para hacer todo el trabajo).
+
+
+
+
+
+============================= 
+Node no es un lengauaje de programacion es un ENTORNO DE EJECUCION PARA JS.
+
+ENTORNO DE EJECUCION: ES UN LUGAR CON LAS CONDICIONES ADECUADAS PARA FUNCIONAR.
+
+
+
+
+Js era solo una forma de agregar algo de interactividad al servidor de mozilla--> google crea v8 con c++ --> convierte el lenguaje js en lenguaje maquina
+--> quitaron el motro v8 y lo evolucionaron en node el cual permite usar js del lado del servidor.
+
+ES UNA CANCHA DE BASKETBAL creada en la computadora PARA QUE EL JUGADOR (JS) FUNCIONE.
+
+JS es un programa que usa la asincronia debido a que es single threated, lo que significa que tiene solo un hilo, y para evitar pausar otras tareas las deja en modo asincrono.
+
+
+
+Estructura de una peticion http
+
+linea de peticion 
+
+fetch (url, {
+method: 'POST',
+body: JSON.stringify(data),
+headers:{
+'content-Type'

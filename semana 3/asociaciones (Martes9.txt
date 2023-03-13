@@ -1,0 +1,95 @@
+
+ORM = OBJECT RELATIONAL MODEL  (sequelize).  https://sequelize.org/docs/v6/getting-started/
+
+Nos permite mapear toda la estructura de tablas de la base de datos y poder usar js para poder hacer las consultas mediante js.
+Nos permite relizar CRUD de forma mas sencilla.
+Nos permite crear seeds (para recuperar la estructura de la bd, insertar indo de una bd a otra.
+Nos permite hacer consultas otras bd, porque es agnostico.
+
+
+Morgan es un logger nos da informacion de las peticiones que hay en el servidor.
+
+
+La carpeta src debe contener toda la app.
+La carpeta utils ---> database.js ---> contiene el codigo para conectar la bd a sequelize.
+La carpeta models, va contener las tablas de la bd, pero en equelize se llaman modelos.
+La carpeta routes contiene los endpoints. Desde aqui se realizan las peticiones CRUD.
+La carpeta controllers ---> Esta va tener todas los endpoints de routes pero mas organizado.
+La carpeta services ---> .
+carpeta initModels----> relaciones entre las tablas.
+
+SEQUELIZE FUNCIONA COMPARANDO 
+compara lo que hay en vscode con la base de datos, si encuntra coincidencias no hace nada,
+sino, la crea y agrega lo que corresponde.
+
+
+
+- crear el archivo. npm init -y
+- instalar dependencias. express, sequelize, pg y ph, morgan , nodemon.
+
+============================================================================
+{
+  "name": "entregable2todos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "pg": "^8.9.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.29.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
+
+
+================================================
+
+
+
+- crear componente basico de express.
+
+const express = require ('express');
+
+const PORT =1025;
+
+
+const app = express();
+app.get('/', (req,res) => {
+    res.send('bienvenido al servitos todoApp')
+})
+
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando al puerto ${PORT}`);
+})
+
+
+============================== Y COMPROBAR LA CONEXION.
+
+
+
+
+
+
+
+Asociaciones:
+https://sequelize.org/docs/v6/core-concepts/assocs/
+
+
+Cuatro formas de unir tablas.
+
+The HasOne association              DE UNO A MUCHOS 
+The BelongsTo association           PERTENECE A...
+The HasMany association             TIENE MUCHOS..
+The BelongsToMany association       PARA TABLAS PIVOTE
